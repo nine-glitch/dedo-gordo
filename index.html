@@ -80,7 +80,7 @@ footer{grid-area:footer;border-top:0.5px solid var(--line);padding:1rem 2.5rem;d
 .paywall-precio{display:flex;flex-direction:column;gap:2px;}
 .paywall-precio .monto{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold);line-height:1;}
 .paywall-precio .desc{font-size:9px;letter-spacing:0.08em;color:var(--muted);}
-.btn-comprar{background:var(--gold);color:var(--bg);font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:13px 24px;border:none;cursor:pointer;transition:background 0.2s,transform 0.15s;white-space:nowrap;}
+.btn-comprar{background:var(--gold);color:var(--bg);font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:13px 24px;border:none;cursor:pointer;transition:background 0.2s,transform 0.15s;white-space:nowrap;border-radius:2px;}
 .btn-comprar:hover{background:var(--gold2);transform:translateY(-1px);}
 .paywall-nota{font-size:8px;color:rgba(245,239,224,0.2);letter-spacing:0.06em;text-align:center;}
 .fase-completo{display:none;flex-direction:column;gap:1.5rem;}
@@ -173,7 +173,7 @@ footer{grid-area:footer;border-top:0.5px solid var(--line);padding:1rem 2.5rem;d
   <span class="footer-copy">© 2025 el dedo gordo · hecho en pleno delirio místico</span>
   <div style="display:flex;gap:1.5rem;align-items:center;">
     <span id="contact-btn" style="font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,239,224,0.4);cursor:pointer;transition:color 0.2s;" onmouseenter="this.style.color='#C9A84C'" onmouseleave="this.style.color='rgba(245,239,224,0.4)'" onclick="toggleMail()">contacto</span>
-    <span id="mail-reveal" style="display:none;font-size:9px;letter-spacing:0.06em;color:#C9A84C;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="16667f647f7873796571777f7756666479627978387b73">[email&#160;protected]</a></span>
+    <span id="mail-reveal" style="display:none;font-size:9px;letter-spacing:0.06em;color:#C9A84C;">pirineosgaia[at]proton.me</span>
   </div>
 </footer>
 </div>
@@ -192,7 +192,6 @@ footer{grid-area:footer;border-top:0.5px solid var(--line);padding:1rem 2.5rem;d
       </div>
     </div>
 
-    <!-- FASE 1 -->
     <div class="fase-loading" id="fase-loading">
       <div class="progress-wrap">
         <div class="progress-label">
@@ -213,7 +212,6 @@ footer{grid-area:footer;border-top:0.5px solid var(--line);padding:1rem 2.5rem;d
       </div>
     </div>
 
-    <!-- FASE 2: paywall -->
     <div class="fase-paywall" id="fase-paywall">
       <div class="teaser-reveal">
         <div class="tlabel">primera señal</div>
@@ -236,7 +234,6 @@ footer{grid-area:footer;border-top:0.5px solid var(--line);padding:1rem 2.5rem;d
       <p class="paywall-nota">pago seguro · sin suscripción · sin almacenamiento de foto</p>
     </div>
 
-    <!-- FASE 3: análisis completo -->
     <div class="fase-completo" id="fase-completo">
       <p class="analisis-texto" id="analisis-texto"></p>
       <div class="modal-footer-row">
@@ -248,103 +245,6 @@ footer{grid-area:footer;border-top:0.5px solid var(--line);padding:1rem 2.5rem;d
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const PROXY = 'https://dedo-gordo.vercel.app/api/claude-proxy';
-
-const SYSTEM_TEASER = `Sos una pitonisa paraguaya, cínica y mística. Observá la imagen completa del dedo gordo y registrá mentalmente: estado de la cutícula (seca, gruesa, levantada), presencia y patrón del vello, color y forma de la uña (recta, redondeada, encarnada), callos visibles, hidratación general de la piel. De todo lo que observás, elegí EL dato más llamativo o raro. Solo ese. Escribí dos oraciones: 1. La observación real, dicha con precisión clínica y un toque irónico. Que suene a diagnóstico. 2. El delirio místico que se desprenda de ese dato. Cómico, catchy, con remate. No solemne — cómico y absurdo, como alguien muy serio diciendo una pavada con cara de póker. Sin introducción. Sin "noto que" ni "observo". Directo al dato. Rioplatense.`;
-
-const SYSTEM_ANALISIS = `Sos una pitonisa paraguaya, cínica y mística. Observá el dedo gordo en detalle: cutícula, vello, uña, callos, hidratación. Basándote en lo que ves, escribí tres predicciones con jerga esotérica y humor negro:
-💰 DINERO: una predicción económica basada en algún detalle del pie. 2-3 oraciones, cómica, con remate, rioplatense.
-❤️ AMOR: una predicción amorosa. 2-3 oraciones, cómica, con remate, rioplatense.
-⚠️ ADVERTENCIA DE MIERDA: algo que va a salir mal si no presta atención. 2-3 oraciones, cómica, con remate, rioplatense.
-Terminá con una frase corta y sentenciosa de cierre, como sello de la pitonisa. Sin introducción. Directo a las predicciones.`;
-
-function toggleMail(){
-  var m=document.getElementById('mail-reveal');
-  m.style.display=m.style.display==='none'?'inline':'none';
-}
-function handleOverlayClick(e){if(e.target===document.getElementById('modal'))cerrarModal();}
-function cerrarModal(){
-  document.getElementById('modal').classList.remove('open');
-  document.body.style.overflow='';
-  document.getElementById('foto').value='';
-  clearInterval(window._progInterval);
-}
-function abrirModal(){
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function resetModal(){
-  document.getElementById('fase-loading').style.display='none';
-  document.getElementById('fase-paywall').style.display='none';
-  document.getElementById('fase-completo').style.display='none';
-  document.getElementById('teaser-scanning').style.display='flex';
-  document.getElementById('teaser-contenido').style.display='none';
-  document.getElementById('teaser-text').style.display='none';
-  document.getElementById('progress-fill').style.width='0%';
-  document.getElementById('pct').textContent='0%';
-}
-function mostrarFase(f){
-  document.getElementById('fase-loading').style.display='none';
-  document.getElementById('fase-paywall').style.display='none';
-  document.getElementById('fase-completo').style.display='none';
-  if(f) document.getElementById(f).style.display='flex';
-}
-function iniciarBarra(onComplete){
-  const fill=document.getElementById('progress-fill');
-  const pct=document.getElementById('pct');
-  let p=0;
-  const step=100/(10000/80);
-  clearInterval(window._progInterval);
-  window._progInterval=setInterval(()=>{
-    p=Math.min(p+step,100);
-    fill.style.width=p+'%';
-    pct.textContent=Math.round(p)+'%';
-    if(p>=100){clearInterval(window._progInterval);onComplete();}
-  },80);
-}
-
-async function procesarFoto(event){
-  const file=event.target.files[0];
-  if(!file) return;
-  const reader=new FileReader();
-  reader.onload=async(e)=>{
-    const b64=e.target.result.split(',')[1];
-    const mime=file.type;
-
-    abrirModal();
-    resetModal();
-    document.getElementById('modal-img').src=e.target.result;
-    document.getElementById('modal-thumb').style.display='flex';
-    mostrarFase('fase-loading');
-
-    const makeBody = (system, maxTokens) => JSON.stringify({
-      model:'claude-sonnet-4-20250514',
-      max_tokens: maxTokens,
-      system,
-      messages:[{role:'user',content:[
-        {type:'image',source:{type:'base64',media_type:mime,data:b64}},
-        {type:'text',text:'Analizá este dedo gordo.'}
-      ]}]
-    });
-
-    const [teaserRes, analisisRes] = await Promise.allSettled([
-      fetch(PROXY,{method:'POST',headers:{'Content-Type':'application/json'},body:makeBody(SYSTEM_TEASER,300)}).then(r=>r.json()),
-      fetch(PROXY,{method:'POST',headers:{'Content-Type':'application/json'},body:makeBody(SYSTEM_ANALISIS,600)}).then(r=>r.json())
-    ]);
-
-    const teaserTexto = teaserRes.status==='fulfilled'
-      ? teaserRes.value.content?.map(b=>b.text||'').join('')||'el pie guarda silencio.'
-      : 'la pitonisa percibe algo que no puede ignorar.';
-
-    const analisisTexto = analisisRes.status==='fulfilled'
-      ? analisisRes.value.content?.map(b=>b.text||'').join('')||'la lectura completa está lista.'
-      : 'el cosmos podal ha hablado. contactá a la pitonisa para más detalles.';
-
-    document.getElementById('teaser-scanning').style.display='none';
-    document.getElementById('teaser-contenido').style.display='flex';
-    document.getElementById('teaser-text').textContent=teaserTexto;
-    document.getElementById('teaser-text').style.display='block';
-
-    iniciarBarra(()=>{
-      document.getEle
+<script src="app.js"></script>
+</body>
+</html>
