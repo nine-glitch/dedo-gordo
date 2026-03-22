@@ -344,7 +344,7 @@ async function procesarFoto(event){
 
     const [teaserRes, analisisRes] = await Promise.allSettled([
       // llamada 1: teaser (observación breve + mini delirio)
-      fetch('https://api.anthropic.com/v1/messages',{
+      fetch('https://tu-deploy.vercel.app/api/claude-proxys',{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
           model:'claude-sonnet-4-20250514',max_tokens:300,
@@ -358,7 +358,7 @@ Observá la imagen del dedo gordo y escribí UNA sola observación: un dato real
       }).then(r=>r.json()),
 
       // llamada 2: análisis completo
-      fetch('https://api.anthropic.com/v1/messages',{
+      fetch('https://tu-deploy.vercel.app/api/claude-proxys',{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
           model:'claude-sonnet-4-20250514',max_tokens:800,
